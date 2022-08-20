@@ -1,12 +1,14 @@
 #from openpyxl import load_workbook
 import pandas as pd
 
+#cargamos informe como dataframe
 df = pd.read_excel('Informe Tranformadores MLU.xlsx')
 df = df[['Fecha', 'TERRITORIO', 'CIRCUITO', 'ID_BDI','CODELEME', 'CODIGO_BDI_CIRCUITO', 'PLACA MT COLOCADA', 'Equipo Ruta Id', 'PLACA MT ANTERIOR',
 'Matricula MT anterior', 'POTENCIA', 'POTENCIA NOMINAL MODIFICADA', 'FABRICANTE', 'MARCA MODIFICADA', 'OTRA MARCA', 'RELTRANS', 'TENSIÓN SECUNDARIA MODIFICADA (V)',
 'TIPINS', 'CONFIRME TIPO DE INSTALACIÓN', 'TIPOFASE','CONFIRME TIPO DE TRANSFORMADOR', 'ESTADO DEL TRANSFORMADOR', 'Longitud del equipo padre', 'Latitud del equipo padre',
 'FOTO VERIFICACIÓN FRENTE - LADO 1','FOTO VERIFICACIÓN FRENTE - LADO 2', 'Foto matricula MT','FOTO MT COLOCADA', 'SOPORTE 01','SOPORTE 02', 'SOPORTE FOTOGRÁFICO 03', 'SOPORTE FOTOGRÁFICO 04', 'Nombre Equipo padre',
 'Nombre del Usuario', 'Longitud', 'Latitud', "Estado"]]
+
 
 #Eliminar duplicados equipo ruta id
 df = df.drop_duplicates(subset=['Equipo Ruta Id']) 
@@ -124,4 +126,22 @@ del df["Latitud"] #ELIMINAR COLUMNA
 del df["Longitud"] #ELIMINAR COLUMNA
 df.insert(37,"ESTADO COORDENADAS",0)
 
+# COMPARAMOS LOS CODIGOS CON LA BD MT
+
+#cargamos BD MT como dataframe
+df_mt = pd.read_excel('BD MT - CODIGO.xlsx')
+
+#INSERTAMOS COLUMNAS PARA LA VERIFICACION Y CRUCE DE CODIGO
+df.insert(4,"CODIGO MT",0)
+df.insert(5,"VERIFICACION CODIGO",0)
+
+#se cruzan los df por matricula antigua 
+df = pd.merge(df, df_mt, on='MATRICULA_ANTIGUA')
+
+#se copian los datos, se organizan y se elimina la columna sobrante
+for i in df.index:
+    df['CODIGO MT'][i] = df['CODIGO_TRANSFORMADOR'][i]
+del df['CODIGO_TRANSFORMADOR']
+
+#imprimimos el df en un excel
 df.to_excel('COORDENADAS_xx_JULIO2022_APG.xlsx', sheet_name='CC')
