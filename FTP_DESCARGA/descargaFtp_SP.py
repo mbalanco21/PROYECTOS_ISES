@@ -36,7 +36,7 @@ df = pd.read_excel('descarga.xlsx') # SE CARGA EL ARCHIVO EXCEL QUE ESTA DENTRO 
 
 #SE CREA RUTA INCIAL A PARTIR DE ARCHIVO EXCEL Y SE EMPAQUETA EN LSITAS
 for i in df.index:
-    ruta_servidor ="/ImagenesFormsMap/ImagenesCampo/MLU AIR-E/"+df["TERRITORIO"][i]+"/"+df["SUB_ESTACION"][i]+"/"+df["CIRCUITO"][i]
+    ruta_servidor ="/MLU AIR-E/"+df["TERRITORIO"][i]+"/"+df["SUB_ESTACION"][i]+"/"+df["CIRCUITO"][i]
     lista_ruta_servidor.append(ruta_servidor)
     
     #SE EXTRAEN LOS RUTA ID TX Y SE LISTAN
@@ -173,7 +173,7 @@ if confirma_descarga == "si":
     for nombre_carpeta in lista_ok_tx[0:len(lista_ok_tx)]:  #SE CREAN LAS CARPETAS LOCALES
         os.mkdir("778_"+nombre_carpeta)
     for nombre_carpeta in lista_ok_tx[0:len(lista_ok_tx)]:  #SE CARGAN LAS LAS CARPETAS LOCALES
-        os.chdir('C:/Users/P568/Desktop/AUTO_FTP/FTP_DESCARGA/'+"778_"+nombre_carpeta)
+        os.chdir('C:/Users/P568/Desktop/PROYECTOS_ISES/FTP_DESCARGA/'+"778_"+nombre_carpeta)
         print("778_"+nombre_carpeta+" "+str(n))
         ftp.cwd(lista_ruta_final_tx[n])         #SE BUSCA LA RUTA EN EL SERVIDOR
         n = n+1

@@ -80,8 +80,8 @@ for ruta in lista_ruta_servidor[0:len(lista_ruta_servidor)]:
             carpetas.remove('LEVANTAMIENTO')            #ELIMINO CARPETA LEVANTAMIENTO DE LAS RUTAS POSIBLES
             # print(carpetas)
            
-        else:
-            print(carpetas)
+        # else:
+        #     print(carpetas)
         
     
         # print(ruta)
@@ -122,7 +122,7 @@ for ruta in lista_ruta_temp1[0:len(lista_ruta_temp)]:
 # print(lista_ruta_final_tx)
 # print(" ")
 # print(lista_ruta_final_ap)
-print(len(lista_ruta_final_ap))
+print("DE " + str(len(lista_ruta_final_ap)) + " AP BUSCADOS")
 
 #SE VALIDAN LAS RUTASDINALES AP Y SE LISTAN LAS OK Y ERRORES
 n=0
@@ -144,7 +144,7 @@ print("SE ENCONTRARON " + str(len(lista_ruta_final_ap)) + " AP")
 print(" ")
 
 #SE VALIDAN LAS RUTASDINALES TX Y SE LISTAN LAS OK Y ERRORES
-print(len(lista_ruta_final_tx))
+print("DE " + str(len(lista_ruta_final_tx)) + " TX BUSCADOS")
 n=0
 for ruta in lista_ruta_final_tx[0:len(lista_ruta_final_tx)]:
     id_tx = lista_id_tx[n]
@@ -173,7 +173,7 @@ if confirma_descarga == "si":
     for nombre_carpeta in lista_ok_tx[0:len(lista_ok_tx)]:  #SE CREAN LAS CARPETAS LOCALES
         os.mkdir("749_"+nombre_carpeta)
     for nombre_carpeta in lista_ok_tx[0:len(lista_ok_tx)]:  #SE CARGAN LAS LAS CARPETAS LOCALES
-        os.chdir('C:/Users/P568/Desktop/AUTO_FTP/FTP_DESCARGA/'+"749_"+nombre_carpeta)
+        os.chdir('C:/Users/P568/Desktop/PROYECTOS_ISES/FTP_DESCARGA/'+"749_"+nombre_carpeta)
         print("749_"+nombre_carpeta+" "+str(n))
         ftp.cwd(lista_ruta_final_tx[n])         #SE BUSCA LA RUTA EN EL SERVIDOR
         n = n+1
@@ -206,7 +206,7 @@ if confirma_descarga == "si":
             print("apoyo duplicado / carpeta ya creada: 761_"+str(nombre_carpeta))
         
     for nombre_carpeta in lista_ok_ap[0:len(lista_ok_ap)]: #SE CARGAN LAS LAS CARPETAS LOCALES
-        os.chdir('C:/Users/P568/Desktop/AUTO_FTP/FTP_DESCARGA/'+"761_"+nombre_carpeta)
+        os.chdir('C:/Users/P568/Desktop/PROYECTOS_ISES/FTP_DESCARGA/'+"761_"+nombre_carpeta)
         print("761_"+nombre_carpeta+" "+str(n))
         ftp.cwd(lista_ruta_final_ap[n])              #SE BUSCA LA RUTA EN EL SERVIDOR
         n = n+1
