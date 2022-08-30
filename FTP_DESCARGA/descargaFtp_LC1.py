@@ -40,12 +40,12 @@ for i in df.index:
     lista_ruta_servidor.append(ruta_servidor)
     
     #SE EXTRAEN LOS RUTA ID TX Y SE LISTAN
-    n_id_tx =str(df["RUTA ID"][i])
+    n_id_tx =str(int(df["RUTA ID"][i]))
     lista_descarga.append(n_id_tx)
     lista_id_tx.append(n_id_tx)
     
     #SE EXTRAEN LOS RUTA ID AP Y SE LISTAN
-    n_id_ap = str(df["RUTA ID APOYO"][i])
+    n_id_ap = str(int(df["RUTA ID APOYO"][i]))
     lista_descarga.append(n_id_ap)
     lista_id_ap.append(n_id_ap)
     
@@ -196,7 +196,7 @@ if confirma_descarga == "si":
             
     print("------- termenino descarga tx-------")
     
-    os.chdir('C:/Users/P568/Desktop/AUTO_FTP/FTP_DESCARGA')
+    os.chdir('C:/Users/P568/Desktop/PROYECTOS_ISES/FTP_DESCARGA')
     
     n=0
     for nombre_carpeta in lista_ok_ap[0:len(lista_ok_ap)]: #SE CREAN LAS CARPETAS LOCALES
