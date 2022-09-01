@@ -7,7 +7,7 @@ df = df[['Fecha', 'TERRITORIO', 'CIRCUITO', 'ID_BDI','CODELEME', 'CODIGO_BDI_CIR
 'Matricula MT anterior', 'POTENCIA', 'POTENCIA NOMINAL MODIFICADA', 'FABRICANTE', 'MARCA MODIFICADA', 'OTRA MARCA', 'RELTRANS', 'TENSIÓN SECUNDARIA MODIFICADA (V)',
 'TIPINS', 'CONFIRME TIPO DE INSTALACIÓN', 'TIPOFASE','CONFIRME TIPO DE TRANSFORMADOR', 'ESTADO DEL TRANSFORMADOR', 'Longitud del equipo padre', 'Latitud del equipo padre',
 'FOTO VERIFICACIÓN FRENTE - LADO 1','FOTO VERIFICACIÓN FRENTE - LADO 2', 'Foto matricula MT','FOTO MT COLOCADA', 'SOPORTE 01','SOPORTE 02', 'SOPORTE FOTOGRÁFICO 03', 'SOPORTE FOTOGRÁFICO 04', 'Nombre Equipo padre',
-'Nombre del Usuario', 'Longitud', 'Latitud', "Estado","¿TRANSFORMADORES EN BANCO?"]]
+'Nombre del Usuario', 'Longitud', 'Latitud', "Estado", "¿TRANSFORMADORES EN BANCO?"]]
 
 
 #Eliminar duplicados equipo ruta id
@@ -136,7 +136,7 @@ df.insert(4,"CODIGO MT",0)
 df.insert(5,"VERIFICACION CODIGO",0)
 
 #se cruzan los df por matricula antigua 
-df = pd.merge(df, df_mt, on='MATRICULA_ANTIGUA')
+df = df.merge(df_mt, how='left', on='MATRICULA_ANTIGUA')
 
 #se copian los datos, se organizan y se elimina la columna sobrante
 for i in df.index:
@@ -144,4 +144,4 @@ for i in df.index:
 del df['CODIGO_TRANSFORMADOR']
 
 #imprimimos el df en un excel
-df.to_excel('COORDENADAS_xx_JULIO2022_APG.xlsx', sheet_name='CC')
+df.to_excel('COORDENADAS_xx_SEPTIEMBRE2022_APG.xlsx', sheet_name='CC')
