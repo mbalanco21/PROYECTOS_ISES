@@ -25,10 +25,13 @@ print("No Warning Shown")
 # 1. Se Carga el archivo MLU
 # =============================================================================
 # path = 'MLU_2.xlsx'
+
+#VENTANA DE ABRIR DOCUMENTO
 file_path = filedialog.askopenfilename(defaultextension=".xls")
 if file_path is None:
     # quit()
     sys.exit()
+
 # MLU = pd.read_excel(path, header=0,usecols = ["TERRITORIO","SUBESTACIÓN","CIRCUITO",\
 # "Nombre Ruta","Nombre del Usuario","Equipo Ruta Id","Nombre Equipo","Equipo Padre",\
 # "Nombre Equipo Padre","Nombre Trabajo","rutaid","Fecha","Hora",\
@@ -43,67 +46,81 @@ if file_path is None:
 # La pestaña AP se utiliza para sacar los demás
 MLU = pd.read_excel(file_path, header=0,sheet_name = 'AP')
 MLU_Tramo = pd.read_excel(file_path, header=0,sheet_name = 'TRAMOS')
+
+
 Glosario_Apoyo = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'APOYO',usecols = 'K:N')
 Glosario_Apoyo.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
-                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True) 
+                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)
+
+    
 Glosario_Tramo = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'TRAMO',usecols = 'K:N')
 Glosario_Tramo.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
                         'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)
+
 Glosario_Caja = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'CAJA DE ABONADO',usecols = 'K:N')
 Glosario_Caja.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
                         'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)
+    
 Glosario_Puente = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'PUENTE',usecols = 'K:N')    
 Glosario_Puente.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
                         'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True) 
+    
 Glosario_TVCABLE = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'TV CABLE',usecols = 'K:N')    
 Glosario_TVCABLE.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
-                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)  
+                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True) 
+    
 Glosario_Camara = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'CAMARA',usecols = 'K:N')    
 Glosario_Camara.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
                         'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)
+    
 Glosario_Antena = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'ANTENA',usecols = 'K:N')    
 Glosario_Antena.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
-                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)      
+                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True) 
+     
 Glosario_Ficticio = pd.read_excel('GLOSARIO NUEVO_Ref_Codigos.xlsb', header=0,\
                                sheet_name = 'Ent_1.1',usecols = 'K:N')    
 Glosario_Ficticio.rename(columns={'Unnamed: 10':'Editor','Unnamed: 11':'Codigo',\
-                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)          
+                        'Unnamed: 12':'Descripcion','Unnamed: 13':'Observacion'},inplace=True)  
+        
 UUCC = pd.read_excel('unidades constructivas_UUCC_CREG.xlsx', header=0,\
-                               sheet_name = 'UC N1 Postes',usecols = 'C:D')
-UUCC = UUCC.iloc[5:,:]
-UUCC.reset_index(inplace=True)
-UUCC = UUCC.drop(columns = 'index')
+                               sheet_name = 'UC N1 Postes',usecols = 'C:D')    
+UUCC = UUCC.iloc[5:,:] #seleccion de fila 5
+UUCC.reset_index(inplace=True) #resetar index
+UUCC = UUCC.drop(columns = 'index') #elimina columna index
 UUCC.rename(columns={'ANÁLISIS DE PRECIOS UNITARIOS ':'UC','Unnamed: 3':'DESCRIPCION'\
-                        },inplace=True)
-UUCC.DESCRIPCION = UUCC.loc[:,'DESCRIPCION'].str.lower().apply(str.replace,args=(' ', ''))
+                        },inplace=True) #renombrando columnas
+UUCC.DESCRIPCION = UUCC.loc[:,'DESCRIPCION'].str.lower().apply(str.replace,args=(' ', '')) #se coloca la columna en minusculas
+
 
 UUCC_Tramo = pd.read_excel('unidades constructivas_UUCC_CREG.xlsx', header=0,\
                                sheet_name = 'UC N1 Conductores',usecols = 'B:C')
-UUCC_Tramo = UUCC_Tramo.iloc[4:,:]
-UUCC_Tramo.reset_index(inplace=True)
-UUCC_Tramo = UUCC_Tramo.drop(columns = 'index')
+    
+UUCC_Tramo = UUCC_Tramo.iloc[4:,:] #seleccion de fila 4
+UUCC_Tramo.reset_index(inplace=True) #resetar index
+UUCC_Tramo = UUCC_Tramo.drop(columns = 'index') #elimina columna index
 UUCC_Tramo.rename(columns={'ANÁLISIS DE PRECIOS UNITARIOS ':'UC','Unnamed: 2':'DESCRIPCION'\
-                        },inplace=True)
+                        },inplace=True) #renombrando columnas
     
 UUCC_Tramo1 = pd.read_excel('unidades constructivas_UUCC_CREG.xlsx', header=0,\
                                sheet_name = 'UC N1 Conductores',usecols = 'R:S')
 UUCC_Tramo1 = UUCC_Tramo1.iloc[4:,:]  
 UUCC_Tramo1.rename(columns={'Unnamed: 17':'UC','Unnamed: 18':'DESCRIPCION'\
                         },inplace=True)
-UUCC_Tramo1.reset_index(inplace=True,drop=True)  
+UUCC_Tramo1.reset_index(inplace=True,drop=True)
+
 UUCC_Tramo = pd.concat([UUCC_Tramo,UUCC_Tramo1])
-UUCC_Tramo = UUCC_Tramo.drop(UUCC_Tramo.loc[UUCC_Tramo.loc[:,'UC'].isna(),:].index)
+UUCC_Tramo = UUCC_Tramo.drop(UUCC_Tramo.loc[UUCC_Tramo.loc[:,'UC'].isna(),:].index) #eliminar campos vacios 
 UUCC_Tramo.reset_index(inplace=True,drop=True)
 
-UUCC_Tramo.DESCRIPCION = UUCC_Tramo.loc[:,'DESCRIPCION'].astype(str)
-UUCC_Tramo.UC = UUCC_Tramo.loc[:,'UC'].astype(str)
+UUCC_Tramo.DESCRIPCION = UUCC_Tramo.loc[:,'DESCRIPCION'].astype(str) #convertir columna a tipo str
+UUCC_Tramo.UC = UUCC_Tramo.loc[:,'UC'].astype(str) #convertir columna a tipo str
 UUCC_Tramo.DESCRIPCION = UUCC_Tramo.loc[:,'DESCRIPCION'].str.lower().apply(str.replace,args=(' ', ''))
 UUCC_Tramo = UUCC_Tramo.loc[~UUCC_Tramo.UC.str.contains('nan'),:]
 UUCC_Tramo = UUCC_Tramo.loc[~UUCC_Tramo.UC.str.contains('UC'),:]
@@ -120,7 +137,7 @@ UUCC_Tramo = UUCC_Tramo.drop(columns = 'index')
 # df_repeated = df_repeated.drop('sort', axis=1)
 # df_repeated.reset_index(inplace=True,drop=True)
 # idx = df_repeated.DESCRIPCION.str.rfind('<', start=0, end=None)
-# df_repeated.DESCRIPCION.apply(lambda x: x[:idx[i]] )
+# df_repeated.DESCRIPCION.apply(lambda x: x[:idx[i]])
 
 # DataList = []
 # for i in range(0,len(A.loc[:,'DESCRIPCION']),1):
@@ -130,6 +147,8 @@ UUCC_Tramo = UUCC_Tramo.drop(columns = 'index')
 # newdf.columns = df.columns
 # A.DESCRIPCION.apply(lambda x: x.join([char*(7-len(x)) for char in '0']) + x)
 # Se valida si hay duplicados en QR y/o No medidor
+
+#se filtran los contains
 Sel = MLU.loc[:,'Tipo de Apoyo'].str.contains('Baja Tensión|Media y Baja Tensión|Solo retención', regex=True)
 MLU = MLU.loc[Sel,:]
 Apoyo = MLU
@@ -207,7 +226,7 @@ CTesc = pd.merge(left=Apoyo, right=TESC,how='left', \
 # Apoyo.loc[:'Altura del apoyo'] = 
 Apoyo.loc[:,'Estructura_Apoyo_BT'] = CTesc.Codigo_y
 Apoyo.loc[:,'Estructura_Apoyo_BT_'] = CTesc.Descripcion
-Apoyo.loc[:,'DESC_ Elementos_Telematicos'] = Apoyo.loc[:,'¿El apoyo sostiene tramo de telecomunicaciones?'].str.upper()
+Apoyo.loc[:,'DESC_ Elementos_Telematicos'] = Apoyo.loc[:,'¿El apoyo sostiene tramo de telecomunicaciones?'].str.upper() #mayuscula
 Apoyo.loc[:,'Elementos_Telematicos'] = Apoyo.loc[:,'¿El apoyo sostiene tramo de telecomunicaciones?']
 Apoyo.loc[:,'Elementos_Telematicos'] = Apoyo.replace({'Elementos_Telematicos': {'Si': 'S',\
                     'No': 'N'}})
