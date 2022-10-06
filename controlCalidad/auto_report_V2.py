@@ -11,7 +11,7 @@ df = df[['Fecha', 'TERRITORIO', 'CIRCUITO', 'ID_BDI','CODELEME', 'CODIGO_BDI_CIR
 
 
 #Eliminar duplicados equipo ruta id
-df = df.drop_duplicates(subset=['Equipo Ruta Id']) 
+df = df.drop_duplicates(subset=['Equipo Ruta Id'])
 
 #rellenar vacias por ceros
 df.fillna(0, inplace=True)

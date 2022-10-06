@@ -159,4 +159,4 @@ del df['CODIGO_TRANSFORMADOR']
 
 #imprimimos el df en un excel
 
-df.to_excel('COORDENADAS_xx_SEPTIEMBRE2022_APG.xlsx', sheet_name='CC')
+df.to_excel('COORDENADAS_xx_SEPTIEMBRE2022_APG.xlsx', sheet_name='CC', index = False)
