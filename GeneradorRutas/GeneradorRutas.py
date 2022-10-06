@@ -9,7 +9,7 @@ datos = wb['DATOS_RUTA_TRABAJO']
 
 seguir = "S"
 while (seguir == "S") or (seguir == "s") :
-    fecha = "20220909"
+    fecha = "20221004"
     circuito = "none"
     codigo = 0
     departamento = "none"
@@ -18,7 +18,7 @@ while (seguir == "S") or (seguir == "s") :
     
     circuito = input("CIRCUITO : ")
     NoRuta = input("Numero de Ruta : ")
-    nombreKml = input("Nombre del kml : ")
+    # nombreKml = input("Nombre del kml : ")
     for i in archivoCodigo.index:
         if archivoCodigo["CIRCUITO (ID 147)"][i] == circuito:
             codigo = int(archivoCodigo["ID"][i])
@@ -29,6 +29,7 @@ while (seguir == "S") or (seguir == "s") :
         departamento = input("TERRITORIO : ")
     
     xcircuito = circuito.replace(' ', '_') #remplazamos
+    nombreKml = xcircuito
     
     print('MATRICULACION_' + str(codigo))
     print("MATRICULACIÓN")
