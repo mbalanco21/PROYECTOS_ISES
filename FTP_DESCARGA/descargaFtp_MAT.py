@@ -32,19 +32,24 @@ lista_ok_tx = []
 #  error_perm: 550 CWD failed. "/MLU AIR-E/03_MAGDALENA/PLATO/PLATO__I": directory not found. =
 #  ALGO DEBER ESTAR MAL ESCRITO EN EL EXCEL
 # =============================================================================
-# "/ImagenesFormsMap/ImagenesCampo/MLU AIR-E/
-
+lc1 = "/ImagenesFormsMap/ImagenesCampo/MLU AIR-E/"
+lc2 = "/MLU AIR-E/"
 
 #credenciales
 usuario = 'lcabrera2'
 contraseña = '123456'
 
+if usuario == 'lcabrera2':
+    inicio = lc2
+else:
+    inicio = lc1
 
 df = pd.read_excel('descarga.xlsx') # SE CARGA EL ARCHIVO EXCEL QUE ESTA DENTRO DE LA CARPETA
-
+#rellenar vacias por ceros
+df.fillna(0, inplace=True)
 #SE CREA RUTA INCIAL A PARTIR DE ARCHIVO EXCEL Y SE EMPAQUETA EN LSITAS
 for i in df.index:
-    ruta_servidor ="/MLU AIR-E/"+df["TERRITORIO"][i]+"/"+df["SUB_ESTACION"][i]+"/"+df["CIRCUITO"][i]
+    ruta_servidor =inicio+df["TERRITORIO"][i]+"/"+df["SUB_ESTACION"][i]+"/"+df["CIRCUITO"][i]
     lista_ruta_servidor.append(ruta_servidor)
     
     #SE EXTRAEN LOS RUTA ID TX Y SE LISTAN
@@ -60,7 +65,7 @@ for i in df.index:
     #SE EXTRAEN LOS NOMBRE RUTA DEL EXCEL Y SE LISTAN
     lista_ruta_doc.append(df["RUTA"][i])
     
-    print(i)
+    # print(i)
 # print(lista_ruta_servidor)
 print(len(lista_ruta_servidor))
 
@@ -93,7 +98,7 @@ for ruta in lista_ruta_servidor[0:len(lista_ruta_servidor)]:
                 # print(carpetas)
             # print(ruta)
             ruta_temp = ruta+"/"+carpetas[0]
-            print(ruta_temp)
+            # print(ruta_temp)
             # print(" ")
             lista_ruta_temp.append(ruta_temp)
             break
@@ -110,7 +115,7 @@ for ruta in lista_ruta_servidor[0:len(lista_ruta_servidor)]:
         except Exception as e:                  #SE CAPTRAN LOS ERRORES COMO: NO ENCONTRADO, MAL ESCRITO
             ruta_temp = ruta+"/error"
             lista_ruta_temp.append(ruta_temp)
-            print(ruta_temp)
+            # print(ruta_temp)
             #lista_ruta_servidor.remove(ruta)
             break
             
@@ -299,4 +304,6 @@ if confirma_descarga == "si":
 
 else:
     print("no se descargo nada")    #EN CASO DE NO COLOCAR si 
+
 ftp.close()
+
